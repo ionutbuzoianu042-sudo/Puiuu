@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Valentine pentru Oana 💖</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(135deg, #ffd1dc, #ffb6c1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
+.box {
+  background: rgba(255,255,255,0.25);
+  padding: 40px;
+  border-radius: 25px;
+  max-width: 600px;
+  box-shadow: 0 0 25px rgba(255,255,255,0.4);
+  animation: fadeIn 1s ease;
+  position: relative;
+  z-index: 2;
+}
+
+button {
+  margin: 12px;
+  padding: 12px 28px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.yes {
+  background: #ff4b6e;
+  color: white;
+  font-weight: bold;
+}
+
+.no {
+  background: #ff6fa3;
+  color: white;
+  position: relative;
+}
+
+.hidden { display: none; }
+
+.heart {
+  position: absolute;
+  font-size: 25px;
+  opacity: 0.7;
+  animation: floatUp 8s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0.9; }
+  50% { transform: rotate(180deg); }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div id="heartsContainer"></div>
+
+<!-- LEVELS -->
+<div class="box" id="lvl1">
+  <h1>Oana 💖</h1>
+  <p>Vrei să fii Valentine-ul meu?</p>
+  <button class="yes" onclick="next(1)">DA 😘</button>
+  <button class="no" id="no1">NU 😅</button>
+</div>
+
+<div class="box hidden" id="lvl2">
+  <h1>Hihi 😏</h1>
+  <p>Sigură că nu vrei să apeși DA?</p>
+  <button class="yes" onclick="next(2)">DA 💞</button>
+</div>
+
+<div class="box hidden" id="lvl3">
+  <h1>Ultima întrebare 💌</h1>
+  <p>Cine e cea mai minunată fată din lume?</p>
+  <button class="yes" onclick="final()">TU ❤️</button>
+</div>
+
+<div class="box hidden" id="finalBox">
+  <h1>💖 SURPRIZĂ 💖</h1>
+  <p class="message" id="finalMessage"></p>
+</div>
+
+<script>
+// NEXT LEVEL
+function next(level){
+  document.getElementById("lvl"+level).classList.add("hidden");
+  document.getElementById("lvl"+(level+1)).classList.remove("hidden");
+}
+
+// FINAL
+function final(){
+  document.getElementById("lvl3").classList.add("hidden");
+  document.getElementById("finalBox").classList.remove("hidden");
+  typeMessage("Oana, tu ești totul pentru mine. 💖 Azi, mâine și mereu te voi iubi. 🌹");
+}
+
+// Typewriter effect
+function typeMessage(msg){
+  const el = document.getElementById("finalMessage");
+  let i=0;
+  function type(){ if(i<msg.length){ el.innerHTML += msg.charAt(i); i++; setTimeout(type,50); } }
+  type();
+}
+
+// Runaway button ușor
+const btn1 = document.getElementById("no1");
+btn1.addEventListener("mouseover", ()=>{
+  btn1.style.position = "relative";
+  btn1.style.left = (Math.random()*20-10) + "px";
+  btn1.style.top = (Math.random()*20-10) + "px";
+});
+
+// Floating hearts
+const heartsContainer = document.getElementById("heartsContainer");
+const heartEmojis = ["❤️","💖","💕","💘","💝"];
+for(let i=0;i<30;i++){
+  const span = document.createElement("span");
+  span.innerText = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+  span.classList.add("heart");
+  span.style.left = Math.random()*100 + "vw";
+  span.style.fontSize = (15+Math.random()*20) + "px";
+  span.style.animationDuration = (6+Math.random()*6) + "s";
+  heartsContainer.appendChild(span);
+}
+</script>
+
+</body>
+</html>
